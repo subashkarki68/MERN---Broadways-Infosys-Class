@@ -7,7 +7,7 @@ const group = [
   { name: "Ruchi Raj", age: 26 },
   { name: "Samundra", age: 26 },
   { name: "Sumit", age: 19 },
+  { name: "Shyam", age: 32 },
+  { name: "Hari Bahadur", age: 54 },
+  { name: "Madan Bahadur", age: 60 },
 ];
-
-group.pop();
-console.log(group);
