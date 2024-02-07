@@ -11,21 +11,27 @@ http
     switch (req.url) {
       case "/":
         path += "index";
+        res.statusCode = 200;
         break;
       case "/about":
         path += "about";
+        res.statusCode = 200;
         break;
       case "/contact":
         path += "contact";
+        res.statusCode = 200;
         break;
       case "/portfolio":
         path += "portfolio";
+        res.statusCode = 200;
         break;
       case "/services":
         path += "services";
+        res.statusCode = 200;
         break;
       default:
         path += "404";
+        res.statusCode = 404;
         break;
     }
     path += ".html";
