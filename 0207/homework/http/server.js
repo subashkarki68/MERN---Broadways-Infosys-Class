@@ -17,6 +17,11 @@ http
         path += "about";
         res.statusCode = 200;
         break;
+      case "/about-me":
+        res.statusCode = 301;
+        res.setHeader("Location", "/about");
+        res.end();
+        break;
       case "/contact":
         path += "contact";
         res.statusCode = 200;
