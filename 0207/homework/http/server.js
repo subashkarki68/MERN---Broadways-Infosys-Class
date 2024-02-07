@@ -7,7 +7,29 @@ http
   .createServer((req, res) => {
     console.log("🚀 ~ .createServer ~ req, res:", req.url, req.method);
     res.setHeader("Content-Type", "text/html");
-    readFile("./views/index.html", { encoding: "utf8" }, (err, data) => {
+    let path = "views/";
+    switch (req.url) {
+      case "/":
+        path += "index";
+        break;
+      case "/about":
+        path += "about";
+        break;
+      case "/contact":
+        path += "contact";
+        break;
+      case "/portfolio":
+        path += "portfolio";
+        break;
+      case "/services":
+        path += "services";
+        break;
+      default:
+        path += "404";
+        break;
+    }
+    path += ".html";
+    readFile(path, { encoding: "utf8" }, (err, data) => {
       if (err) res.end();
       else {
         //res.write("multiple lines")
