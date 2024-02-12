@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <script src="./node_modules/qrcode/bin/qrcode"></script>
+    <script>
+      QRCode.toCanvas(
+        document.getElementById("canvas"),
+        "sample text",
+        function (error) {
+          if (error) console.error(error);
+          console.log("success!");
+        }
+      );
+    </script>
+  </body>
+</html>

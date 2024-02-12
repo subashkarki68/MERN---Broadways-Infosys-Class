@@ -1,0 +1,26 @@
+{
+  "name": "0208-nodejsnpm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "currency-converter-lt": "^2.0.1",
+    "lodash": "^4.17.21",
+    "nice-is-email": "^1.0.3",
+    "pdfkit": "^0.14.0",
+    "proper-upper-case": "^0.1.0",
+    "qrcode": "^1.5.3",
+    "slugify": "^1.6.6"
+  },
+  "devDependencies": {
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
