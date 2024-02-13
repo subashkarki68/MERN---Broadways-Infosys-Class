@@ -1,0 +1,24 @@
+GET http://localhost:4000/api/v1/blogs
+
+###
+
+GET http://localhost:4000/api/v1/blogs/2
+
+###
+
+POST http://localhost:4000/api/v1/blogs
+Content-Type: application/json
+
+{
+    "msg": "hello",
+    "welom": "okay"
+}
+
+###
+PATCH http://localhost:4000/api/v1/blogs/2
+Content-Type: application/json
+
+{
+    "hello":"World"
+}
+ 
