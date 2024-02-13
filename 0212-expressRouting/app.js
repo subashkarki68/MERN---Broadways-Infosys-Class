@@ -1,14 +1,24 @@
-const express = require("express");
-const indexRouter = require("./routes");
-const app = express();
-const PORT = 3000;
+require("dotenv").config();
 
-app.get("/", (req, res) => {
-  res.json({ msg: "Hello from Index" });
+const express = require("express");
+const morgan = require("morgan");
+
+//Morgan is a Logger
+const indexRouter = require("./routes");
+const PORT = +process.env.PORT;
+
+const app = express();
+
+app.use(morgan("dev"));
+app.use(express.json()); //to allow JSON as request body
+app.use("/assets", express.static("public"));
+
+app.use("/", indexRouter);
+app.use((e, req, res, next) => {
+  e = e ? e.toString() : "Something Went wrong";
+  res.status(500).json({ msg: e });
 });
 
-app.use(express.json());
-app.use("/", indexRouter);
 app.listen(PORT, () => {
   console.log("Application is Listening on port:", PORT);
 });
