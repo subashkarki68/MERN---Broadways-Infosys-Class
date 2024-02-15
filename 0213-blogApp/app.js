@@ -1,9 +1,18 @@
-require("dotenv").config();
+require("dotenv").config({ path: ".env.local" });
 
 const express = require("express");
+const mongoose = require("mongoose");
 const morgan = require("morgan");
 
 const PORT = +process.env.PORT;
+mongoose.connect(process.env.DB_URL);
+
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "Connection error:"));
+db.once("open", () => {
+  console.log("Connected to MongoDB!");
+});
 
 const app = express();
 const indexRouter = require("./routes");

@@ -35,7 +35,7 @@ Content-Type: application/json
 }
 
 ###
-GET {{apiUrl}}/users
+GET {{apiUrl}}/users/subash2
 x-roles: admin
 
 ###
@@ -44,8 +44,8 @@ Content-Type: application/json
 x-roles: admin
 
 {
-    "username": "Subakrki",
-    "email": "subashkarki68@gmail.com",
+    "username": "22aa",
+    "email": "kark22i@gmail.com",
     "name": "Subash",
     "age": 19,
     "password": "1223",

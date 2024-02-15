@@ -1,14 +1,16 @@
 const router = require("express").Router();
 const validate = require("./user.validate");
 const { checkRole, hasPermission } = require("../../utils/sessionManager");
+const User = require("../../models/User");
 
 router
   .route("/")
-  .get(hasPermission("read"), (req, res, next) => {
+  .get(hasPermission("read"), async (req, res, next) => {
     try {
+      const allUsers = await User.find();
       return res.status(200).json({
         success: true,
-        result: "will come from DB...",
+        result: allUsers,
         message: "All users fetched",
       });
     } catch (error) {
@@ -19,12 +21,28 @@ router
     hasPermission("delete"),
     checkRole(["admin", "user"]),
     validate,
-    (req, res, next) => {
+    async (req, res, next) => {
       try {
         const { validatedData } = req;
+        const newUser = new User(validatedData);
+
+        let savedUser;
+        try {
+          savedUser = await newUser.save();
+        } catch (err) {
+          if (err.code === 11000 && err.keyValue) {
+            return res.status(409).json({
+              success: false,
+              result: "N/A",
+              message: "username or email already exists",
+            });
+          }
+          return next(err);
+        }
+
         return res.status(200).json({
           success: true,
-          result: validatedData,
+          result: savedUser,
           message: "User Added Successfully",
         });
       } catch (error) {
@@ -34,12 +52,29 @@ router
   );
 
 router
-  .route("/:id")
-  .get(hasPermission("read"), (req, res, next) => {
+  .route("/:username")
+  .get(hasPermission("read"), async (req, res, next) => {
     try {
-      return res
-        .status(200)
-        .json({ success: true, result: req.body, message: "User Fetched" });
+      const query = User.where({ username: req.params.username });
+      let user;
+      try {
+        user = await query.findOne();
+      } catch (error) {
+        next(error);
+      }
+      if (user)
+        return res.status(200).json({
+          success: true,
+          result: user ?? "N/A",
+          message: "User Fetched",
+        });
+      else {
+        return res.status(404).json({
+          success: false,
+          result: "N/A",
+          message: "No user found with that username",
+        });
+      }
     } catch (error) {
       next(error);
     }
