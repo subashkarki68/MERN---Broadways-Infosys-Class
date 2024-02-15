@@ -1,12 +1,24 @@
-GET http://localhost:4000/api/v1/blogs
+@hostname = http://localhost
+@port = 4000
+@host = {{hostname}}:{{port}}
+@apiUrl = {{host}}/api/v1
+@contentType = application/json
+
+# ##
+# @prompt username
+# @prompt refCode Your reference code display on webpage
+# @prompt otp Your one-time password in your mailbox
+
+###
+GET {{apiUrl}}/blogs
 
 ###
 
-GET http://localhost:4000/api/v1/blogs/2
+GET {{apiUrl}}/blogs/2
 
 ###
 
-POST http://localhost:4000/api/v1/blogs
+POST {{apiUrl}}/blogs
 Content-Type: application/json
 
 {
@@ -15,10 +27,52 @@ Content-Type: application/json
 }
 
 ###
-PATCH http://localhost:4000/api/v1/blogs/2
+PATCH {{apiUrl}}/blogs/2
 Content-Type: application/json
 
 {
     "hello":"World"
 }
+
+###
+GET {{apiUrl}}/users
+x-roles: admin
+
+###
+POST {{apiUrl}}/users
+Content-Type: application/json
+x-roles: admin
+
+{
+    "username": "Subakrki",
+    "email": "subashkarki68@gmail.com",
+    "name": "Subash",
+    "age": 19,
+    "password": "1223",
+    "repeat_password": "1223"
+}
+
+###
+PATCH  {{apiUrl}}/users/3
+Content-Type: application/json
+x-roles: readOnly
+
+###
+PATCH  {{apiUrl}}/users/3
+Content-Type: application/json
+x-roles: superadmin
+
+{
+    "username": "Subakrki"
+}
+
+###
+DELETE {{apiUrl}}/users/2
+Content-Type: application/json
+x-roles: ReadOnly
+
+###
+DELETE {{apiUrl}}/users/2
+Content-Type: application/json
+x-roles: admin,staff
  

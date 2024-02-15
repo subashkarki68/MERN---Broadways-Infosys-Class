@@ -3,11 +3,12 @@ GET http://localhost:3000/assets/images/cat.jpeg
 ###
 POST http://localhost:3000/api/v1/users
 Content-Type: application/json
+role: admin
 
 {
     "email": "apple@apple.com",
     "username": "apple",
     "name":"apple",
     "password": "123apple",
-    "isActive": true,
+    "isActive": true
 }

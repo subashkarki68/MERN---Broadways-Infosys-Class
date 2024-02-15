@@ -54,7 +54,9 @@ router
   .delete((req, res, next) => {
     try {
       res.json({ msg: "Successfully deletion of data", data: req.params.id });
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   });
 
 module.exports = router;
