@@ -1,11 +1,13 @@
 const router = require("express").Router();
+const validate = require("./user.validate");
+const checkRole = require("../../utils/sessionManager");
 
 //GET ALL USERS
 router.get("/", (req, res, next) => {
   try {
     const { limit, page, search } = req.query; //USED FOR SEARCH, SORTING AND FILTER
     //DATABASE OPERATION
-    apple;
+    // apple;
     res.json({ msg: "Hello from user route" });
   } catch (e) {
     next(e);
@@ -13,7 +15,7 @@ router.get("/", (req, res, next) => {
 });
 
 //ADD NEW USER
-router.post("/", (req, res, next) => {
+router.post("/", checkRole(["admin"]), validate, (req, res, next) => {
   try {
     console.log(req.body);
     //DATABASE OPERATION

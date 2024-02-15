@@ -1,10 +1,13 @@
 GET http://localhost:3000/assets/images/cat.jpeg
 
 ###
-POST http://localhost:3000/api/v1/blogs
+POST http://localhost:3000/api/v1/users
 Content-Type: application/json
 
 {
-    "data1": "hello",
-    "data2": "hello again"
+    "email": "apple@apple.com",
+    "username": "apple",
+    "name":"apple",
+    "password": "123apple",
+    "isActive": true,
 }

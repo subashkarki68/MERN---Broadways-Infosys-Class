@@ -13,7 +13,14 @@ app.use(morgan("dev"));
 app.use(express.json()); //to allow JSON as request body
 app.use("/assets", express.static("public"));
 
-app.use("/", indexRouter);
+app.use(
+  "/",
+  (req, res, next) => {
+    req.body.country = "Nepal";
+    next();
+  },
+  indexRouter
+);
 app.use((e, req, res, next) => {
   e = e ? e.toString() : "Something Went wrong";
   res.status(500).json({ msg: e });
