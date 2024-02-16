@@ -18,7 +18,7 @@ router
     }
   })
   .post(
-    hasPermission("delete"),
+    hasPermission("create"),
     checkRole(["admin", "user"]),
     validate,
     async (req, res, next) => {
