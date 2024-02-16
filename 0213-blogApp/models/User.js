@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema({
       message: "Invalid email format",
     },
   },
-});
+}, {timestamps: true} ); //Automatically add time stamps such as createdBy and updatedAt
 
 const User = mongoose.model("User", userSchema);
 
