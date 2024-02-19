@@ -52,18 +52,49 @@ x-roles: admin
     "repeat_password": "1223"
 }
 
+#Post a New User
+###
+
+# @prompt username Type a unique username
+# @prompt email Type your email
+# @prompt name Type your name
+# @prompt age Type your age
+# @prompt password Your password
+# @prompt repeat_password Repeat Password
+POST {{apiUrl}}/users
+Content-Type: application/json
+x-roles: admin
+
+{
+    "username": "{{username}}",
+    "email": "{{email}}",
+    "name": "{{name}}",
+    "age": "{{age}}",
+    "password": "{{password}}",
+    "repeat_password": "{{repeat_password}}"
+}
+
 ###
 PATCH  {{apiUrl}}/users/3
 Content-Type: application/json
 x-roles: readOnly
 
 ###
-PATCH  {{apiUrl}}/users/3
+PATCH  {{apiUrl}}/users/Subakrki
 Content-Type: application/json
 x-roles: superadmin
 
 {
-    "username": "Subakrki"
+    "username": "pandapanda"
+}
+
+###
+PATCH  {{apiUrl}}/users/pandapanda
+Content-Type: application/json
+x-roles: superadmin
+
+{
+    "username" : "Okay"
 }
 
 ###

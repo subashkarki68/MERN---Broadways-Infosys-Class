@@ -79,20 +79,45 @@ router
       next(error);
     }
   })
-  .patch(hasPermission("update"), (req, res, next) => {
+  .patch(hasPermission("update"), async (req, res, next) => {
     try {
+      const { username } = req.params;
+      const user = await User.findOneAndUpdate({ username }, req.body, {
+        new: true,
+      });
+      if (!user)
+        return res.status(404).json({
+          success: false,
+          result: "N/A",
+          message: `User with username ${username} not found`,
+        });
+
+      console.log(user);
       return res
         .status(200)
-        .json({ success: true, result: req.body, message: "User Updated" });
+        .json({ success: true, result: user, message: "User Updated" });
     } catch (error) {
       next(error);
     }
   })
-  .put(hasPermission("update"), (req, res, next) => {
+  .put(hasPermission("update"), async (req, res, next) => {
     try {
+      const { username } = req.params;
+      const user = await User.findOneAndReplace({ username }, req.body, {
+        new: true,
+      });
+      User.replaceOne;
+      if (!user)
+        return res.status(404).json({
+          success: false,
+          result: "N/A",
+          message: `User with username ${username} not found`,
+        });
+
+      console.log(user);
       return res
         .status(200)
-        .json({ success: true, result: req.body, message: "User Updated" });
+        .json({ success: true, result: user, message: "User Updated" });
     } catch (error) {
       next(error);
     }

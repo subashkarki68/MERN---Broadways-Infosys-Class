@@ -1,14 +1,165 @@
-GET http://localhost:3000/assets/images/cat.jpeg
+@hostname = http://localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@apiUrl = {{host}}/api/v1
+@contentType = application/json
+
+# ##
+# @prompt username
+# @prompt refCode Your reference code display on webpage
+# @prompt otp Your one-time password in your mailbox
 
 ###
-POST http://localhost:3000/api/v1/users
+GET {{apiUrl}}/blogs
+
+###
+
+GET {{apiUrl}}/blogs/2
+
+###
+
+POST {{apiUrl}}/blogs
+Content-Type: application/json
+
+{
+    "msg": "hello",
+    "welom": "okay"
+}
+
+###
+PATCH {{apiUrl}}/blogs/2
+Content-Type: application/json
+
+{
+    "hello":"World"
+}
+
+###
+GET {{apiUrl}}/users
+
+###
+GET {{apiUrl}}/users/subash2
+x-roles: admin
+
+###
+POST {{apiUrl}}/users
+Content-Type: application/json
+x-roles: admin
+
+{
+    "email": "kar2k2i22111211311d1a@gmail.com",
+    "name": "Subash",
+    "password": "1223"
+}
+
+#Post a New User
+###
+
+# @prompt username Type a unique username
+# @prompt email Type your email
+# @prompt name Type your name
+# @prompt age Type your age
+# @prompt password Your password
+# @prompt repeat_password Repeat Password
+POST {{apiUrl}}/users
+Content-Type: application/json
+x-roles: admin
+
+{
+    "username": "{{username}}",
+    "email": "{{email}}",
+    "name": "{{name}}",
+    "age": "{{age}}",
+    "password": "{{password}}",
+    "repeat_password": "{{repeat_password}}"
+}
+
+###
+PATCH  {{apiUrl}}/users/3
+Content-Type: application/json
+x-roles: readOnly
+
+###
+PATCH  {{apiUrl}}/users/Subakrki
+Content-Type: application/json
+x-roles: superadmin
+
+{
+    "username": "pandapanda"
+}
+
+###
+PATCH  {{apiUrl}}/users/pandapanda
+Content-Type: application/json
+x-roles: superadmin
+
+{
+    "username" : "Okay"
+}
+
+###
+DELETE {{apiUrl}}/users/2
+Content-Type: application/json
+x-roles: ReadOnly
+
+###
+DELETE {{apiUrl}}/users/2
+Content-Type: application/json
+x-roles: admin,staff
+ 
+
+###
+
+# @prompt email Type your email
+# @prompt name Type your name
+# @prompt password Type password
+POST {{apiUrl}}/users
 Content-Type: application/json
 role: admin
 
 {
-    "email": "apple@apple.com",
-    "username": "apple",
-    "name":"apple",
-    "password": "123apple",
-    "isActive": true
+    "email": "{{email}}",
+    "name": "{{name}}",
+    "password": "{{password}}"
 }
+
+###
+POST {{apiUrl}}/users
+Content-Type: application/json
+x-roles: admin
+
+{
+    "email": "sub2ashka3rr23ki618@gmail.com",
+    "name": "Subash KArki",
+    "password": "nsakdjhj2kh2k123"
+}
+
+###
+PUT {{apiUrl}}/users/65d30d76819b4f368b3db37c
+Content-Type: application/json
+role: admin
+
+{
+    "name": "Subash Karki",
+    "email": "sk@k.com",
+    "password": "2Aaa33"
+}
+
+###
+PATCH  {{apiUrl}}/users/65d30d76819b4f368b3db37c
+Content-Type: application/json
+role: admin
+
+{
+    "email": "s@ka.com"
+}
+
+###
+GET  {{apiUrl}}/users/65d30d76819b4f368b3db37c
+Content-Type: application/json
+x-role: admin
+
+###
+DELETE  {{apiUrl}}/users/65d30d76819b4f368b3db37c
+Content-Type: application/json
+x-role: admin
