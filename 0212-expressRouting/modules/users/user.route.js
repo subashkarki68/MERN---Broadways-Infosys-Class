@@ -11,6 +11,12 @@ router
       const { limit, page, search } = req.query; //USED FOR SEARCH, SORTING AND FILTER
       //DATABASE OPERATION
       const result = await controller.findAll();
+      if (!result)
+        return res.status(500).json({
+          success: false,
+          result,
+          message: "Something Failed",
+        });
       return res.status(200).json({
         success: true,
         result,
@@ -25,6 +31,13 @@ router
     try {
       //DATABASE OPERATION
       const result = await controller.create(req.body);
+      if (!result)
+        return res.status(500).json({
+          success: false,
+          result,
+          message: "Something Failed",
+        });
+
       return res
         .status(200)
         .json({ success: true, result, message: "User Created Successfully" });
@@ -42,6 +55,11 @@ router
     try {
       const { id } = req.params;
       const result = await controller.findBy({ _id: id }).select("-password");
+      if (!result)
+        return res
+          .status(404)
+          .json({ success: false, result, message: "User Not Found" });
+
       return res
         .status(200)
         .json({ success: true, result, message: "User Fetched Successfully" });
@@ -57,6 +75,11 @@ router
       const result = await controller
         .updateAllInID(id, data)
         .select("-password");
+      if (!result)
+        return res
+          .status(404)
+          .json({ success: false, result, message: "User Not Found" });
+
       return res
         .status(200)
         .json({ success: true, result, message: "User Updated Successfully" });
@@ -72,6 +95,11 @@ router
       const result = await controller
         .updateOneInID(id, data)
         .select("-password");
+      if (!result)
+        return res
+          .status(404)
+          .json({ success: false, result, message: "User Not Found" });
+
       return res
         .status(200)
         .json({ success: true, result, message: "User Updated Successfully" });
@@ -84,6 +112,13 @@ router
       const { id } = req.params;
       //DATABASE OPERATION
       const result = await controller.deleteByID(id);
+      if (!result)
+        return res.status(404).json({
+          success: false,
+          result,
+          message: "User not found",
+        });
+
       return res
         .status(200)
         .json({ success: true, result, message: "User Deleted Successfully" });

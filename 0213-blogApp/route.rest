@@ -35,7 +35,7 @@ Content-Type: application/json
 }
 
 ###
-GET {{apiUrl}}/users/subash2
+GET {{apiUrl}}/users/65d366461fe27f08d51584af
 x-roles: admin
 
 ###
@@ -44,12 +44,12 @@ Content-Type: application/json
 x-roles: admin
 
 {
-    "username": "22aa",
-    "email": "kark22i@gmail.com",
-    "name": "Subash",
-    "age": 19,
-    "password": "1223",
-    "repeat_password": "1223"
+    "username": "subashkari",
+    "email": "subashkarki68@gmail.com",
+    "name": "Subash Karki",
+    "age": 26,
+    "password": "apple",
+    "repeat_password": "apple"
 }
 
 #Post a New User
@@ -106,4 +106,9 @@ x-roles: ReadOnly
 DELETE {{apiUrl}}/users/2
 Content-Type: application/json
 x-roles: admin,staff
+
+###
+GET {{apiUrl}}/users
+Content-Type: application/json
+x-roles: admin, staff
  

@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const validate = require("./user.validate");
 const { checkRole, hasPermission } = require("../../utils/sessionManager");
-const User = require("../../models/User");
+const User = require("./user.model");
+const userController = require("./user.controller");
 
 router
   .route("/")
@@ -17,40 +18,56 @@ router
       next(error);
     }
   })
-  .post(
-    hasPermission("create"),
-    checkRole(["admin", "user"]),
-    validate,
-    async (req, res, next) => {
-      try {
-        const { validatedData } = req;
-        const newUser = new User(validatedData);
-
-        let savedUser;
-        try {
-          savedUser = await newUser.save();
-        } catch (err) {
-          if (err.code === 11000 && err.keyValue) {
-            return res.status(409).json({
-              success: false,
-              result: "N/A",
-              message: "username or email already exists",
-            });
-          }
-          return next(err);
-        }
-
-        return res.status(200).json({
-          success: true,
-          result: savedUser,
-          message: "User Added Successfully",
-        });
-      } catch (error) {
-        next(error);
-      }
+  .post(hasPermission("create"), validate, async (req, res, next) => {
+    try {
+      const { validatedData } = req;
+      const { _doc } = await userController.createNewUser(validatedData);
+      const { password, ...result } = _doc;
+      if (!result)
+        return res
+          .status(500)
+          .json({ success: false, result, message: "User Creation Failed" });
+      return res.status(200).json({
+        success: true,
+        result: result ?? "N/A",
+        message: "User Creation Successfull",
+      });
+    } catch (error) {
+      console.log("🚀 ~ .post ~ error:", error);
+      return res.status(409).json({
+        success: false,
+        error: error.keyValue,
+        message: error.keyValue?.username
+          ? "Username already exists"
+          : error.keyValue?.email
+          ? "The Email already exists"
+          : "The provided data conflicts with existing records.",
+      });
     }
-  );
+  });
 
+router.route("/:id").get(hasPermission("read"), async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await userController.getUserByID(id).select("-password");
+    if (!result)
+      return res.status(404).json({
+        success: false,
+        result: result ?? "N/A",
+        message: "Username not found",
+      });
+
+    return res.status(200).json({
+      success: true,
+      result: result ?? "N/A",
+      message: "User fetched successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+//USERNAME
 router
   .route("/:username")
   .get(hasPermission("read"), async (req, res, next) => {
