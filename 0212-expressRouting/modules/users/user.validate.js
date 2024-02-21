@@ -19,6 +19,16 @@ const schema = Joi.object({
   //dob : age > 18
 });
 
+const loginSchema = Joi.object({
+  email: Joi.string()
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com"] },
+    })
+    .required(),
+  password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
+});
+
 const validate = (req, res, next) => {
   //Joi validation
   const { error, test } = schema.validate(req.body);
@@ -28,4 +38,10 @@ const validate = (req, res, next) => {
   next();
 };
 
-module.exports = validate;
+const loginValidate = (req, res, next) => {
+  const { error, test } = loginSchema.validate(req.body);
+  if (error) next(error.details[0].message);
+  next();
+};
+
+module.exports = { validate, loginValidate };

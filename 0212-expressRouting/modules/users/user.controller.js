@@ -1,6 +1,7 @@
 const User = require("./user.model");
 const bcrypt = require("../../utils/bcrypt");
 const mailer = require("../../services/mailer");
+const { generateToken } = require("../../utils/token");
 
 // CREATE
 const create = async (payload) => {
@@ -74,8 +75,26 @@ const register = async (payload) => {
   const user = await User.create(payload);
   if (!user) throw new Error("Registration Failed");
   //Send Email
-  mailer(payload.email, "Register", "Thank ");
+  mailer(payload.email, "Register", "Thank You for Registering");
   console.log(user);
+};
+
+const login = async (payload) => {
+  const { email, password } = payload;
+  if (!email || !password)
+    throw new Error("Email and Password must be provided");
+
+  const user = await User.findOne({ email });
+  if (!user) throw new Error("User doesn't exists");
+  const isValidPw = bcrypt.checkPassword(password, user.password);
+  if (!isValidPw) throw new Error("Email or Password mismatched");
+  const tokenData = {
+    name: user.name,
+    password: user.password,
+    email: user.email,
+    roles: user.roles,
+  };
+  return generateToken(tokenData);
 };
 
 module.exports = {
@@ -86,4 +105,6 @@ module.exports = {
   updateOneInID,
   deleteByID,
   register,
+  login,
+  generateToken,
 };

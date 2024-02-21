@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const validate = require("./user.validate");
+const { validate, loginValidate } = require("./user.validate");
 const checkRole = require("../../utils/sessionManager");
 const controller = require("./user.controller");
 
@@ -127,9 +127,23 @@ router
     }
   });
 
-router.post("/register", (req, res, next) => {
-  const result = controller.register(req.body);
-  res.json(result);
+router.post("/register", async (req, res, next) => {
+  try {
+    const result = await controller.register(req.body);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/login", loginValidate, async (req, res, next) => {
+  try {
+    const result = await controller.login(req.body);
+    console.log(result);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
