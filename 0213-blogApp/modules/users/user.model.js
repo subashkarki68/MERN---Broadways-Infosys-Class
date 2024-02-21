@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 
 //Password Hashing and Salting
 const bcrypt = require("bcrypt");
-const { hashPassword } = require("../../utils/bcrypt");
-// const saltRounds = 1;
+const { hashPassword, comparePassword } = require("../../utils/bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
@@ -42,8 +41,10 @@ const userSchema = new mongoose.Schema(
         message: "Age must be an integer",
       },
     },
-    access_token: {
-      type: mongoose.Schema.Types.Mixed,
+    roles: {
+      type: String,
+      enum: ["user", "admin", "moderator"],
+      default: "user",
     },
     email: {
       type: String,
@@ -62,6 +63,7 @@ const userSchema = new mongoose.Schema(
 ); //Automatically add time stamps such as createdBy and updatedAt
 
 userSchema.pre("save", hashPassword);
+userSchema.methods.comparePassword = comparePassword;
 
 const User = mongoose.model("User", userSchema);
 

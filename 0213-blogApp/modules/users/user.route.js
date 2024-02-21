@@ -21,8 +21,8 @@ router
   .post(hasPermission("create"), validate, async (req, res, next) => {
     try {
       const { validatedData } = req;
-      const { _doc } = await userController.createNewUser(validatedData);
-      const { password, ...result } = _doc;
+      const result = await userController.createNewUser(validatedData);
+      // const { password, ...result } = _doc;
       if (!result)
         return res
           .status(500)
@@ -62,6 +62,16 @@ router.route("/:id").get(hasPermission("read"), async (req, res, next) => {
       result: result ?? "N/A",
       message: "User fetched successfully",
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Login
+router.route("/login").post(async (req, res, next) => {
+  try {
+    const result = await userController.login(req.body);
+    console.log("Result", result);
   } catch (error) {
     next(error);
   }

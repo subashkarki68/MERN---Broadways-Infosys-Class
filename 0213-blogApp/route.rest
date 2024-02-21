@@ -39,17 +39,17 @@ GET {{apiUrl}}/users/65d366461fe27f08d51584af
 x-roles: admin
 
 ###
-POST {{apiUrl}}/users
+POST {{apiUrl}}/users/
 Content-Type: application/json
 x-roles: admin
 
 {
-    "username": "subashkarki68",
-    "email": "subashkarki68@gmail.com",
-    "name": "Subash Karki",
+    "username": "ruchiraj",
+    "email": "ruchirajkarki@gmail.com",
+    "name": "Ruchi Raj Karki",
     "age": 26,
     "password": "apple",
-    "repeat_password": "apple"
+    "repeat_password" : "apple"
 }
 
 #Post a New User

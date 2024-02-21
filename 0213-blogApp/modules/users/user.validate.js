@@ -42,7 +42,8 @@ const schema = Joi.object({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net"] },
     })
-    .messages(emailMessages),
+    .messages(emailMessages)
+    .required(),
 })
   .with("username", "age")
   .xor("password", "access_token")

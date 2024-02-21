@@ -9,5 +9,12 @@ const hashPassword = async function (next) {
     next(error);
   }
 };
+const comparePassword = async function (candidatePassword) {
+  try {
+    return await bcrypt.compare(candidatePassword, this.password);
+  } catch (error) {
+    throw error;
+  }
+};
 
-module.exports = { hashPassword };
+module.exports = { hashPassword, comparePassword };
