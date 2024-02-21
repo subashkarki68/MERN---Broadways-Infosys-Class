@@ -12,7 +12,7 @@ mongoose
   .then(() => {
     console.log("MongoDB database connection successful");
     app.listen(PORT, () => {
-      console.log(`Listening on Port: ${PORT}`);
+      console.log(`Listening on Port:`, PORT);
     });
   })
   .catch((err) => {

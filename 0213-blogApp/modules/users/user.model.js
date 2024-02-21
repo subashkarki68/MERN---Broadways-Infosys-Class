@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 //Password Hashing and Salting
 const bcrypt = require("bcrypt");
+const { hashPassword } = require("../../utils/bcrypt");
 // const saltRounds = 1;
 
 const userSchema = new mongoose.Schema(
@@ -60,16 +61,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 ); //Automatically add time stamps such as createdBy and updatedAt
 
-userSchema.pre("save", async function (next) {
-  try {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(this.password, salt);
-    this.password = hashedPassword;
-    next();
-  } catch (error) {
-    next(error);
-  }
-});
+userSchema.pre("save", hashPassword);
 
 const User = mongoose.model("User", userSchema);
 
