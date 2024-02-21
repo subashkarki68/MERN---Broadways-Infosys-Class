@@ -44,8 +44,8 @@ Content-Type: application/json
 x-roles: admin
 
 {
-    "username": "subashkari",
-    "email": "subashkarki68@gmail.com",
+    "username": "132mohan",
+    "email": "mo312han@gmail.com",
     "name": "Subash Karki",
     "age": 26,
     "password": "apple",

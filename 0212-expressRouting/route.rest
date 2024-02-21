@@ -42,12 +42,12 @@ GET {{apiUrl}}/users/subash2
 x-roles: admin
 
 ###
-POST {{apiUrl}}/users
+POST {{apiUrl}}/users/register
 Content-Type: application/json
 x-roles: admin
 
 {
-    "email": "kar2k2i22111211311d1a@gmail.com",
+    "email": "subashkarki68@gmail.com",
     "name": "Subash",
     "password": "1223"
 }

@@ -127,4 +127,9 @@ router
     }
   });
 
+router.post("/register", (req, res, next) => {
+  const result = controller.register(req.body);
+  res.json(result);
+});
+
 module.exports = router;

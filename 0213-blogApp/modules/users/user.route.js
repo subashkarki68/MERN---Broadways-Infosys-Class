@@ -27,7 +27,7 @@ router
         return res
           .status(500)
           .json({ success: false, result, message: "User Creation Failed" });
-      return res.status(200).json({
+      return res.status(201).json({
         success: true,
         result: result ?? "N/A",
         message: "User Creation Successfull",

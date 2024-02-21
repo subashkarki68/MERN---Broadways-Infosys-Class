@@ -1,4 +1,6 @@
 const User = require("./user.model");
+const bcrypt = require("../../utils/bcrypt");
+const mailer = require("../../services/mailer");
 
 // CREATE
 const create = async (payload) => {
@@ -66,6 +68,16 @@ const deleteByID = (userID) => {
   }
 };
 
+//OPEN Router Register
+const register = async (payload) => {
+  payload.password = bcrypt.hashPassword(payload.password);
+  const user = await User.create(payload);
+  if (!user) throw new Error("Registration Failed");
+  //Send Email
+  mailer(payload.email, "Register", "Thank ");
+  console.log(user);
+};
+
 module.exports = {
   create,
   findBy,
@@ -73,4 +85,5 @@ module.exports = {
   updateAllInID,
   updateOneInID,
   deleteByID,
+  register,
 };

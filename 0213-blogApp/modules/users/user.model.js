@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 //Password Hashing and Salting
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
+// const saltRounds = 1;
 
 const userSchema = new mongoose.Schema(
   {
@@ -62,7 +62,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre("save", async function (next) {
   try {
-    const salt = await bcrypt.genSalt(saltRounds);
+    const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(this.password, salt);
     this.password = hashedPassword;
     next();
