@@ -47,8 +47,19 @@ Content-Type: application/json
 x-roles: admin
 
 {
-    "email": "subashkarki6822@gmail.com",
-    "name": "subashkarki",
+    "email": "subashkarki68@gmail.com",
+    "name": "subash2karki",
+    "password": "1223",
+    "roles" : ["admin","user"]
+}
+
+###
+POST {{apiUrl}}/users/login
+Content-Type: application/json
+x-roles: admin
+
+{
+    "email": "subashkarki68@gmail.com",
     "password": "1223"
 }
 
@@ -97,26 +108,6 @@ x-roles: superadmin
 {
     "username": "pandapanda"
 }
-
-###
-PATCH  {{apiUrl}}/users/pandapanda
-Content-Type: application/json
-x-roles: superadmin
-
-{
-    "username" : "Okay"
-}
-
-###
-DELETE {{apiUrl}}/users/2
-Content-Type: application/json
-x-roles: ReadOnly
-
-###
-DELETE {{apiUrl}}/users/2
-Content-Type: application/json
-x-roles: admin,staff
- 
 
 ###
 
@@ -173,3 +164,53 @@ x-role: admin
 DELETE  {{apiUrl}}/users/65d30d76819b4f368b3db37c
 Content-Type: application/json
 x-role: admin
+
+###
+POST {{apiUrl}}/users/generate-fp-token
+Content-Type: application/json
+
+{
+    "email": "subashkarki68@gmail.com"
+}
+
+###
+POST {{apiUrl}}/users/verify-fp-token
+Content-Type: application/json
+
+{
+    "email":"subashkarki68@gmail.com",
+    "fpToken": "599805",
+    "newPassword": "ball"
+}
+
+###
+POST {{apiUrl}}/users/change-password
+Content-Type: : application/json
+
+{
+    "email": "subashkarki68@gmail.com",
+    "password": "ball",
+    "newPassword": "apple"
+}
+
+###
+PATCH {{apiUrl}}/users//block-user/byadmin
+Content-Type: application/json
+
+{
+    "email":""
+}
+
+###
+GET {{apiUrl}}/users
+
+###
+POST {{apiUrl}}/users/registeradmin
+x-super-admin-password: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJkYXRhIjp7Il9pZCI6IjY1ZGI0NGFlMzRjYTc5M2U4MDc0OTM1MiIsIm5hbWUiOiJSdWNoaSBSYWogS2Fya2kiLCJwYXNzd29yZCI6IiQyYiQxMCRONnY3dmtEa250ZUhCdG9FYnpocnIuNTdRMi8zTGsxdVFvckpNcnJpYkouQm12MHk1eHNMMiIsImVtYWlsIjoicnVj
+Content-Type: application/json
+
+{
+    "email": "subashkarki68@gmail.com",
+    "name": "Subash Karki",
+    "password": "123"
+}

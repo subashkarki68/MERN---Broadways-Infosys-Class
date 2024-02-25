@@ -1,6 +1,7 @@
 const jtw = require("jsonwebtoken");
+const crypto = require("crypto");
 
-const generateToken = (payload) => {
+const generateAccessToken = (payload) => {
   return jtw.sign(
     {
       data: payload,
@@ -14,4 +15,6 @@ const verifyToken = (token) => {
   return jtw.verify(token, process.env.JWT_SECRET);
 };
 
-module.exports = { generateToken, verifyToken };
+const generateSixRandomDigits = () => crypto.randomInt(100000, 999999);
+
+module.exports = { generateSixRandomDigits, verifyToken, generateAccessToken };

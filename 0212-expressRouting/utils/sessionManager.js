@@ -1,18 +1,44 @@
-const checkRole = (sysRole) => (req, res, next) => {
-  // const userRole = sysRole.role;
-  // console.log(userRole); //['admin']
-  // if (!userRole) throw new Error("Role missing");
-  // next();
-  // const userRole = req.headers?.role ? req.headers.role.split(",") : [];
-  const userRole = req.headers["x-roles"]
-    ? req.headers["x-roles"].split(",")
-    : [];
-  const isValidRole = sysRole.some((role) => userRole.includes(role));
-  if (!isValidRole) throw new Error("Permission denied");
-  next();
+const User = require("../modules/users/user.model");
+const { verifyToken } = require("./token");
+
+const errorMsg = (msg) => {
+  throw new Error(msg);
+};
+
+const isSuperAdmin = (req, res, next) => {
+  try {
+    const superAdminPassword = req.headers["x-super-admin-password"];
+    if (!superAdminPassword)
+      throw new Error("Please provide your super admin password.");
+    const superAdmin = process.env.SUPER_ADMIN_PASSWORD === superAdminPassword;
+
+    console.log("🚀 ~ isSuperAdmin ~ superAdmin:", superAdmin);
+    if (!superAdmin) throw new Error("Password incorrect for Super Admin");
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+const checkRole = (sysRole) => async (req, res, next) => {
+  try {
+    const access_token = req.headers["access-token"];
+    if (!access_token) errorMsg("No access");
+    const { data } = verifyToken(access_token);
+    if (!data) errorMsg("Failed to verify token");
+    //Check if user is active or not
+    const user = await User.findOne({ email: data.email, isActive: true });
+    if (!user) errorMsg("Can't find user");
+    req.currentUser = user._id;
+    const isValidRole = data.roles.some((role) => sysRole.includes(role));
+    if (!isValidRole) errorMsg("Permission Denied");
+    next();
+  } catch (error) {
+    next(error);
+  }
 };
 //RBAC(Role Based access control)
 //ABAC(Attribute)
 //PBAC(Permission)
 
-module.exports = checkRole;
+module.exports = { checkRole, isSuperAdmin };

@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const { hashPassword, comparePassword } = require("../../utils/bcrypt");
 
 const userSchema = new Schema(
   {
@@ -8,12 +9,18 @@ const userSchema = new Schema(
     roles: {
       type: [String],
       enum: ["admin", "user"],
-      default: "user",
+      default: ["user"],
       required: true,
     },
+    isActive: { type: Boolean, default: true },
+    fpToken: { type: String },
+    fpTokenExpires: { type: Date },
   },
   { timestamps: true }
 );
+
+userSchema.pre("save", hashPassword);
+userSchema.methods.comparePassword = comparePassword;
 
 const User = new model("User", userSchema);
 

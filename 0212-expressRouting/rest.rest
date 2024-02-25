@@ -1,0 +1,162 @@
+@hostname = http://localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@apiUrl = {{host}}/api/v1
+@superAdminPassword = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJkYXRhIjp7Il9pZCI6IjY1ZGI0NGFlMzRjYTc5M2U4MDc0OTM1MiIsIm5hbWUiOiJSdWNoaSBSYWogS2Fya2kiLCJwYXNzd29yZCI6IiQyYiQxMCRONnY3dmtEa250ZUhCdG9FYnpocnIuNTdRMi8zTGsxdVFvckpNcnJpYkouQm12MHk1eHNMMiIsImVtYWlsIjoicnVj
+@subashAT = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5hbWUiOiJTdWJhc2ggS2Fya2kiLCJlbWFpbCI6InN1YmFzaGthcmtpNjhAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iLCJ1c2VyIl19LCJpYXQiOjE3MDg4Njg2NjgsImV4cCI6MTcwODk1NTA2OH0.EPajHAZnksR6fUITN_DcLBWrMEW8brUdHRuPtN6kRwA
+@ruchiAT = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5hbWUiOiJSdWNoaSBSYWogS2Fya2kiLCJlbWFpbCI6InJ1Y2hpcmFqa2Fya2lAZ21haWwuY29tIiwicm9sZXMiOlsidXNlciJdfSwiaWF0IjoxNzA4ODY4NzgyLCJleHAiOjE3MDg5NTUxODJ9.laMShejzdtk6AJSDgz9OQhonhX13hFB_Hce2HH-d1uk
+
+####################################################################
+####################  REGISTER A ADMIN  ############################
+####################################################################
+POST {{apiUrl}}/users/registeradmin
+x-super-admin-password: {{superAdminPassword}}
+Content-Type: application/json
+
+{
+    "email": "subashkarki68@gmail.com",
+    "name": "Subash Karki",
+    "password": "123"
+}
+####################################################################
+####################  OPEN ROUTE REGISTER  #########################
+####################################################################
+POST {{apiUrl}}/users/register
+Content-Type: application/json
+
+{
+    "email": "subashkarki68@gmail.com",
+    "name": "Subash Karki",
+    "password": "123",
+    "roles": ["admin","user"]
+}
+###
+POST {{apiUrl}}/users/register
+Content-Type: application/json
+
+{
+    "email": "ruchirajkarki@gmail.com",
+    "name": "Ruchi Raj Karki",
+    "password": "123"
+}
+###
+POST {{apiUrl}}/users/register
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "name": "test",
+    "password": "123"
+}
+
+####################################################################
+############################  LOGIN  ###############################
+####################################################################
+POST {{apiUrl}}/users/login
+Content-Type: application/json
+
+{
+    "email": "subashkarki68@gmail.com",
+    "password": "123"
+}
+###
+POST {{apiUrl}}/users/login
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "password": "12345"
+}
+
+
+####################################################################
+####################  GENERATE FP TOKEN  ###########################
+####################################################################
+POST {{apiUrl}}/users/generate-fp-token
+Content-Type: application/json
+
+{
+    "email" : "test@gmail.com"
+}
+
+####################################################################
+####################  VERIFY FP TOKEN  #############################
+####################################################################
+POST {{apiUrl}}/users/verify-fp-token
+Content-Type: application/json
+
+{
+    "email" : "test@gmail.com",
+    "fpToken" : "940961",
+    "newPassword" : "123"
+}
+
+####################################################################
+####################  POST A USER BY ADMIN  ########################
+####################################################################
+POST {{apiUrl}}/users/register/byadmin
+Content-Type: application/json
+access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5hbWUiOiJzdWJhc2gya2Fya2kiLCJlbWFpbCI6ImFzdWIyYTFzaGthcmtpNjI4QGdtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIiwidXNlciJdfSwiaWF0IjoxNzA4Njg3OTY4LCJleHAiOjE3MDg3NzQzNjh9.wcAyJHsGULlhI_LuxTdBDFbbGNZmavQbEUmxThpqoj8
+
+{
+    "email": "ruchirajkarki@gmail.com",
+    "name": "ruchi raj karki",
+    "password": "123",
+    "roles": ["user"]
+}
+
+###
+POST {{apiUrl}}/users/register/byadmin
+Content-Type: application/json
+access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5hbWUiOiJzdWJhc2gya2Fya2kiLCJlbWFpbCI6ImExMjNzdWIyYTFzaGthcmtpNjI4QGdtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIl19LCJpYXQiOjE3MDg2ODg0NjgsImV4cCI6MTcwODc3NDg2OH0.7RSv_JFdT5bdnw3ksCbSvusnlaHxwhDiPa25dwmZFAM
+
+{
+    "email": "testsubashkarki68@gmail.com",
+    "name": "subashkarki",
+    "password": "1223",
+    "role": "user" 
+}
+
+####################################################################
+####################  Reset Password BY ADMIN  #####################
+####################################################################
+POST {{apiUrl}}/users/reset-password/byadmin
+Content-Type: application/json
+access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY1ZGI1YzU1OTE0NjcxYWYxYWQ4YmRhOCIsIm5hbWUiOiJTdWJhc2ggS2Fya2kiLCJlbWFpbCI6InN1YmFzaGthcmtpNjhAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iLCJ1c2VyIl19LCJpYXQiOjE3MDg4ODgxODMsImV4cCI6MTcwODk3NDU4M30.n7I-946HcrhBvvC4BDzzFtn6HElBWoyfK045SLnfYKg
+
+{
+    "email": "test@gmail.com",
+    "newPassword": "12345"
+}
+
+####################################################################
+################  BLOCK A USER BY ADMIN  ###########################
+####################################################################
+PATCH {{apiUrl}}/users/block-user/byadmin
+Content-Type: application/json
+access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY1ZGI1YzU1OTE0NjcxYWYxYWQ4YmRhOCIsIm5hbWUiOiJTdWJhc2ggS2Fya2kiLCJlbWFpbCI6InN1YmFzaGthcmtpNjhAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iLCJ1c2VyIl19LCJpYXQiOjE3MDg4ODgxODMsImV4cCI6MTcwODk3NDU4M30.n7I-946HcrhBvvC4BDzzFtn6HElBWoyfK045SLnfYKg
+
+{
+    "email": "test@gmail.com"
+}
+
+####################################################################
+#############################  GET MY PROFILE  #####################
+####################################################################
+GET {{apiUrl}}/users/my-profile
+Content-Type: application/json
+access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY1ZGI1YzU1OTE0NjcxYWYxYWQ4YmRhOCIsIm5hbWUiOiJTdWJhc2ggS2Fya2kiLCJlbWFpbCI6InN1YmFzaGthcmtpNjhAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iLCJ1c2VyIl19LCJpYXQiOjE3MDg4ODgxODMsImV4cCI6MTcwODk3NDU4M30.n7I-946HcrhBvvC4BDzzFtn6HElBWoyfK045SLnfYKg
+###
+GET {{apiUrl}}/users/my-profile
+Content-Type: application/json
+access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY1ZGI4YjBjODlmNWZjMzRiYmNjZmY5OCIsIm5hbWUiOiJ0ZXN0IiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGVzIjpbInVzZXIiXX0sImlhdCI6MTcwODg4ODU1MSwiZXhwIjoxNzA4OTc0OTUxfQ.-AqyeZSETH4EZ-rwAWFCpiLOyyHhSXaqS5TWONOJx88
+####################################################################
+####################  UPDATE MY PROFILE  ###########################
+####################################################################
+POST {{apiUrl}}/users/my-profile
+Content-Type: application/json
+access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY1ZGI4YjBjODlmNWZjMzRiYmNjZmY5OCIsIm5hbWUiOiJ0ZXN0IiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGVzIjpbInVzZXIiXX0sImlhdCI6MTcwODg4ODU1MSwiZXhwIjoxNzA4OTc0OTUxfQ.-AqyeZSETH4EZ-rwAWFCpiLOyyHhSXaqS5TWONOJx88
+
+{
+    "name" : "karki"
+}

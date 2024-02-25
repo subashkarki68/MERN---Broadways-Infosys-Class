@@ -1,7 +1,6 @@
 require("dotenv").config();
-
+const db = require("./config/db");
 const express = require("express");
-const mongoose = require("mongoose");
 const morgan = require("morgan");
 
 //Morgan is a Logger
@@ -10,14 +9,15 @@ const PORT = +process.env.PORT;
 
 const app = express();
 
-mongoose
-  .connect(process.env.DB_URI)
-  .then(() => {
-    console.log("MongoDB Database Connection Successful");
-  })
-  .catch((err) => {
-    console.log("MongoDB COnnection Failure: ", err);
+db.then(() => {
+  console.log("Connection to DB successful :-)");
+  app.listen(PORT, () => {
+    console.log("Application is Listening on port:", PORT);
   });
+}).catch((e) => {
+  console.log(":-( Cannot connect to DB:", e);
+  process.exit(1);
+});
 
 app.use(morgan("dev"));
 app.use(express.json()); //to allow JSON as request body
@@ -27,8 +27,4 @@ app.use("/", indexRouter);
 app.use((e, req, res, next) => {
   e = e ? e.toString() : "Something Went wrong";
   res.status(500).json({ msg: e });
-});
-
-app.listen(PORT, () => {
-  console.log("Application is Listening on port:", PORT);
 });

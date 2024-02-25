@@ -1,11 +1,19 @@
 const bcrypt = require("bcrypt");
 
-const hashPassword = (password) => {
-  return bcrypt.hashSync(password, +process.env.SALT_ROUNDS);
-};
+function hashPassword(next) {
+  if (!this.isModified("password")) {
+    console.log(
+      "Password not modified. Going Next() from hashPassword in bcrypt."
+    );
+    next();
+  }
+  console.log("Hassing password for: ", this.name);
+  this.password = bcrypt.hashSync(this.password, +process.env.SALT_ROUNDS);
+  next();
+}
 
-const checkPassword = (password, hashPassword) => {
-  return bcrypt.compare(password, hashPassword);
-};
+function comparePassword(candidatePassword) {
+  return bcrypt.compareSync(candidatePassword, this.password);
+}
 
-module.exports = { hashPassword, checkPassword };
+module.exports = { hashPassword, comparePassword };

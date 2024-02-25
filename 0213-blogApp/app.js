@@ -1,37 +1,38 @@
 require("dotenv").config({ path: ".env.local" });
 
 const express = require("express");
-const mongoose = require("mongoose");
 const morgan = require("morgan");
+const MongoStore = require("connect-mongo");
+const { connection } = require("mongoose");
+const db = require("./config/db");
+const session = require("express-session");
 
+//Environment Variables
 const PORT = +process.env.PORT;
-
-console.log("Trying to connect to MongoDB...");
-mongoose
-  .connect(process.env.DB_URL)
-  .then(() => {
-    console.log("MongoDB database connection successful");
-    app.listen(PORT, () => {
-      console.log(`Listening on Port:`, PORT);
-    });
-  })
-  .catch((err) => {
-    console.log("MongoDB database connection unsuccessful", err);
-  });
-
-// const db = mongoose.connection;
-
-// db.on("error", (err) => console.error("MongoDB connection error: ", err));
-// db.once("open", () => {
-//   console.log("Connected to MongoDB!");
-// });
 
 const app = express();
 const indexRouter = require("./routes");
 
+//MongoDB Store to store sessions
+const store = MongoStore.create({
+  clientPromise: db.then(() => connection.getClient()),
+  autoRemove: "native",
+});
+
+//App uses expression-session
+app.use(
+  session({
+    cookie: {},
+  })
+);
+
 app.use(express.json());
 app.use(morgan("dev"));
 app.use("/", indexRouter);
+
+app.listen(PORT, () => {
+  console.log(`Listening on Port:`, PORT);
+});
 
 //Error Handling
 app.use((error, req, res, next) => {
