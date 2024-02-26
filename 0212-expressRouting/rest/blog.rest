@@ -1,0 +1,17 @@
+@hostname = http://localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@apiUrl = {{host}}/api/v1/blogs
+
+####################################################################
+########################  POST A BLOG  #############################
+####################################################################
+POST {{apiUrl}}
+Content-Type: application/json
+access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY1ZGI1YzU1OTE0NjcxYWYxYWQ4YmRhOCIsIm5hbWUiOiJTdWJhc2ggS2Fya2kiLCJlbWFpbCI6InN1YmFzaGthcmtpNjhAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iLCJ1c2VyIl19LCJpYXQiOjE3MDg5NDMwNjYsImV4cCI6MTcwOTAyOTQ2Nn0.rYF7lIdjHXrTgW_aGWpJcTuf7Oqefz4GKfrvNlPqYLY
+
+{
+    "title" : "New Title",
+    "content" : "This is my new blog",
+    "pictureUrl" : "test"
+}

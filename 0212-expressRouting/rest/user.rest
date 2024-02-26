@@ -10,17 +10,16 @@
 ###########  REGISTER A ADMIN - BY SUPER ADMIN  ####################
 ####################################################################
 POST {{apiUrl}}/users/registeradmin
-x-super-admin-password: {{superAdminPassword}}
 Content-Type: application/json
+x-super-admin-password: {{superAdminPassword}}
 
 {
-    "email": "subashkarki68@gmail.com",
+    "email": "242subashkarki68@gmail.com",
     "name": "Subash Karki",
-    "password": "123"
+    "password": "1234"
 }
 
-
-
+####################################################################
  █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗███████╗
 ██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║██╔════╝
 ███████║██║  ██║██╔████╔██║██║██╔██╗ ██║███████╗
@@ -92,7 +91,7 @@ access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY1ZGI1Y
 
 
 
-
+####################################################################
  ██████╗ ██████╗ ███████╗███╗   ██╗
 ██╔═══██╗██╔══██╗██╔════╝████╗  ██║
 ██║   ██║██████╔╝█████╗  ██╔██╗ ██║
@@ -119,7 +118,7 @@ POST {{apiUrl}}/users/register
 Content-Type: application/json
 
 {
-    "email": "ruchirajkarki@gmail.com",
+    "email": "22ruchirajkarki@gmail.com",
     "name": "Ruchi Raj Karki",
     "password": "123"
 }
@@ -134,7 +133,7 @@ Content-Type: application/json
 }
 
 
-
+####################################################################
 ██╗   ██╗███████╗███████╗██████╗ ███████╗
 ██║   ██║██╔════╝██╔════╝██╔══██╗██╔════╝
 ██║   ██║███████╗█████╗  ██████╔╝███████╗
@@ -159,7 +158,7 @@ Content-Type: application/json
 
 {
     "email": "test@gmail.com",
-    "password": "123"
+    "password": "12345"
 }
 
 

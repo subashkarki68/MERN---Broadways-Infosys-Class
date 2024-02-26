@@ -1,62 +1,18 @@
 const router = require("express").Router();
-
+const controller = require("./blog.controller");
+const { checkRole } = require("../../utils/sessionManager");
 const {
   checkEmptyData,
   sendSuccessResponse,
 } = require("../../utils/responseHandler");
+const { blogValidate } = require("./blog.validate");
 
-// Middleware to pass through all routes
-router.all((req, res, next) => next());
-
-// Routes for /blogs
 router
   .route("/")
-  .get((req, res, next) => {
+  .post(blogValidate, checkRole(["admin", "user"]), (req, res, next) => {
     try {
-      sendSuccessResponse(res, "All Blogs received successfully");
-    } catch (e) {
-      next(e);
-    }
-  })
-  .post((req, res, next) => {
-    try {
-      if (checkEmptyData(req.body, res)) return;
-      sendSuccessResponse(res, "Blog posted successfully", req.body);
-    } catch (e) {
-      next(e);
-    }
-  });
-
-// Routes for /blogs/:id
-router
-  .route("/:id")
-  .put((req, res, next) => {
-    try {
-      if (checkEmptyData(req.body, res)) return;
-      sendSuccessResponse(
-        res,
-        `Blog with ID: ${req.params.id} updated successfully`,
-        req.body
-      );
-    } catch (e) {
-      next(e);
-    }
-  })
-  .patch((req, res, next) => {
-    try {
-      if (checkEmptyData(req.body, res)) return;
-      sendSuccessResponse(
-        res,
-        `Blog with ID: ${req.params.id} patched successfully`,
-        req.body
-      );
-    } catch (e) {
-      next(e);
-    }
-  })
-  .delete((req, res, next) => {
-    try {
-      res.json({ msg: `Blog with ID: ${req.params.id} deleted successfully` });
+      const result = controller.createBlog(req.currentUser, req.body);
+      res.status(200).json(result);
     } catch (e) {
       next(e);
     }

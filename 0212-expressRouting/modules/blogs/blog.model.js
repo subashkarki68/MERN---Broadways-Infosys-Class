@@ -6,7 +6,7 @@ const { ObjectId } = Schema.Types;
 const blogSchema = new Schema(
   {
     title: { type: String, required: [true, "Title is missing"] },
-    slug: { type: String, required: true, unique: true },
+    slug: { type: String, unique: true },
     author: {
       type: ObjectId,
       ref: "User",
@@ -22,11 +22,29 @@ const blogSchema = new Schema(
       required: true,
     },
     content: { type: String, required: true },
-    pictureUrl: { type: Number, min: 1 },
+    pictureUrl: { type: String, required: true },
   },
   { timestamps: true }
 );
 
+blogSchema.pre("save", async function (next) {
+  if (!this.slug) {
+    const slug = this.title.toLowerCase().replace(/ /g, "-");
+    this.slug = await generateUniqueSlug(slug);
+  }
+  next();
+});
+
+// Function to generate a unique slug
+async function generateUniqueSlug(slug) {
+  const existingBlog = await Blog.findOne({ slug });
+  if (!existingBlog) {
+    return slug;
+  }
+
+  const newSlug = `${slug}-${Date.now()}`;
+  return newSlug;
+}
 const Blog = new model("Blog", blogSchema);
 
 module.exports = Blog;
