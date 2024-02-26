@@ -169,17 +169,17 @@ const verifyFPtoken = async (payload) => {
   return { success: "Password reset successfully" };
 };
 
-const changePassword = async (payload) => {
-  const { email, password, newPassword } = payload;
-  console.log(payload);
-  if (!email) {
-    errorMsg("Email is missing");
-  } else if (!password) {
+const changePassword = async (_id, payload) => {
+  if (!_id) errorMsg("Can't find your account");
+  else if (!payload) errorMsg("Update details not provided");
+
+  const { password, newPassword } = payload;
+  if (!password) {
     errorMsg("Password is missing");
   } else if (!newPassword) {
     errorMsg("New Password is missing");
   }
-  const user = await User.findOne({ email, isActive: true });
+  const user = await User.findOne({ _id, isActive: true });
   if (!user) errorMsg("User not found");
   const isValidPw = user.comparePassword(password);
   if (!isValidPw) errorMsg("Your password is incorrect");

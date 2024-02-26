@@ -7,7 +7,7 @@
 @ruchiAT = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5hbWUiOiJSdWNoaSBSYWogS2Fya2kiLCJlbWFpbCI6InJ1Y2hpcmFqa2Fya2lAZ21haWwuY29tIiwicm9sZXMiOlsidXNlciJdfSwiaWF0IjoxNzA4ODY4NzgyLCJleHAiOjE3MDg5NTUxODJ9.laMShejzdtk6AJSDgz9OQhonhX13hFB_Hce2HH-d1uk
 
 ####################################################################
-####################  REGISTER A ADMIN  ############################
+###########  REGISTER A ADMIN - BY SUPER ADMIN  ####################
 ####################################################################
 POST {{apiUrl}}/users/registeradmin
 x-super-admin-password: {{superAdminPassword}}
@@ -18,66 +18,16 @@ Content-Type: application/json
     "name": "Subash Karki",
     "password": "123"
 }
-####################################################################
-####################  OPEN ROUTE REGISTER  #########################
-####################################################################
-POST {{apiUrl}}/users/register
-Content-Type: application/json
-
-{
-    "email": "subashkarki68@gmail.com",
-    "name": "Subash Karki",
-    "password": "123",
-    "roles": ["admin","user"]
-}
-###
-POST {{apiUrl}}/users/register
-Content-Type: application/json
-
-{
-    "email": "ruchirajkarki@gmail.com",
-    "name": "Ruchi Raj Karki",
-    "password": "123"
-}
-###
-POST {{apiUrl}}/users/register
-Content-Type: application/json
-
-{
-    "email": "test@gmail.com",
-    "name": "test",
-    "password": "123"
-}
-
-####################################################################
-############################  LOGIN  ###############################
-####################################################################
-POST {{apiUrl}}/users/login
-Content-Type: application/json
-
-{
-    "email": "subashkarki68@gmail.com",
-    "password": "123"
-}
-###
-POST {{apiUrl}}/users/login
-Content-Type: application/json
-
-{
-    "email": "test@gmail.com",
-    "password": "12345"
-}
 
 
-####################################################################
-####################  GENERATE FP TOKEN  ###########################
-####################################################################
-POST {{apiUrl}}/users/generate-fp-token
-Content-Type: application/json
 
-{
-    "email" : "test@gmail.com"
-}
+ █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗███████╗
+██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║██╔════╝
+███████║██║  ██║██╔████╔██║██║██╔██╗ ██║███████╗
+██╔══██║██║  ██║██║╚██╔╝██║██║██║╚██╗██║╚════██║
+██║  ██║██████╔╝██║ ╚═╝ ██║██║██║ ╚████║███████║
+╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝
+                                                
 
 ####################################################################
 ####################  VERIFY FP TOKEN  #############################
@@ -140,6 +90,90 @@ access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY1ZGI1Y
     "email": "test@gmail.com"
 }
 
+
+
+
+ ██████╗ ██████╗ ███████╗███╗   ██╗
+██╔═══██╗██╔══██╗██╔════╝████╗  ██║
+██║   ██║██████╔╝█████╗  ██╔██╗ ██║
+██║   ██║██╔═══╝ ██╔══╝  ██║╚██╗██║
+╚██████╔╝██║     ███████╗██║ ╚████║
+ ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═══╝
+                                   
+
+
+####################################################################
+####################  OPEN ROUTE REGISTER  #########################
+####################################################################
+POST {{apiUrl}}/users/register
+Content-Type: application/json
+
+{
+    "email": "subashkarki68@gmail.com",
+    "name": "Subash Karki",
+    "password": "123",
+    "roles": ["admin","user"]
+}
+###
+POST {{apiUrl}}/users/register
+Content-Type: application/json
+
+{
+    "email": "ruchirajkarki@gmail.com",
+    "name": "Ruchi Raj Karki",
+    "password": "123"
+}
+###
+POST {{apiUrl}}/users/register
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "name": "test",
+    "password": "123"
+}
+
+
+
+██╗   ██╗███████╗███████╗██████╗ ███████╗
+██║   ██║██╔════╝██╔════╝██╔══██╗██╔════╝
+██║   ██║███████╗█████╗  ██████╔╝███████╗
+██║   ██║╚════██║██╔══╝  ██╔══██╗╚════██║
+╚██████╔╝███████║███████╗██║  ██║███████║
+ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝
+                                         
+
+####################################################################
+############################  LOGIN  ###############################
+####################################################################
+POST {{apiUrl}}/users/login
+Content-Type: application/json
+
+{
+    "email": "subashkarki68@gmail.com",
+    "password": "123"
+}
+###
+POST {{apiUrl}}/users/login
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "password": "123"
+}
+
+
+####################################################################
+####################  GENERATE FP TOKEN  ###########################
+####################################################################
+POST {{apiUrl}}/users/generate-fp-token
+Content-Type: application/json
+
+{
+    "email" : "test@gmail.com"
+}
+
+
 ####################################################################
 #############################  GET MY PROFILE  #####################
 ####################################################################
@@ -158,5 +192,17 @@ Content-Type: application/json
 access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY1ZGI4YjBjODlmNWZjMzRiYmNjZmY5OCIsIm5hbWUiOiJ0ZXN0IiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGVzIjpbInVzZXIiXX0sImlhdCI6MTcwODg4ODU1MSwiZXhwIjoxNzA4OTc0OTUxfQ.-AqyeZSETH4EZ-rwAWFCpiLOyyHhSXaqS5TWONOJx88
 
 {
-    "name" : "karki"
+    "name" : "subash karki"
+}
+
+####################################################################
+####################  CHANGE MY PASSWORD  ##########################
+####################################################################
+POST {{apiUrl}}/users/change-password
+Content-Type: application/json
+access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY1ZGI4YjBjODlmNWZjMzRiYmNjZmY5OCIsIm5hbWUiOiJ0ZXN0IiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGVzIjpbInVzZXIiXX0sImlhdCI6MTcwODg4ODU1MSwiZXhwIjoxNzA4OTc0OTUxfQ.-AqyeZSETH4EZ-rwAWFCpiLOyyHhSXaqS5TWONOJx88
+
+{
+    "password" : "12345",
+    "newPassword" : "123"
 }

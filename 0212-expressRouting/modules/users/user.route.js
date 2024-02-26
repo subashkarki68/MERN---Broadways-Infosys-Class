@@ -80,36 +80,50 @@ router.post("/login", loginValidate, async (req, res, next) => {
   }
 });
 
-router.post("/generate-fp-token", async (req, res, next) => {
-  try {
-    //usercontroller generate FP token
-    // console.log(req.body);
-    const result = await controller.generateFPtoken(req.body);
-    res.json(result);
-  } catch (error) {
-    next(error);
+router.post(
+  "/generate-fp-token",
+  checkRole(["admin", "user"]),
+  async (req, res, next) => {
+    try {
+      //usercontroller generate FP token
+      // console.log(req.body);
+      const result = await controller.generateFPtoken(req.body);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
   }
-});
-router.post("/verify-fp-token", async (req, res, next) => {
-  try {
-    //usercontroller verify FP token
-    const result = await controller.verifyFPtoken(req.body);
-    res.json(result);
-  } catch (error) {
-    next(error);
+);
+router.post(
+  "/verify-fp-token",
+  checkRole(["admin", "user"]),
+  async (req, res, next) => {
+    try {
+      //usercontroller verify FP token
+      const result = await controller.verifyFPtoken(req.body);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
-//forLater
-router.post("/change-password", async (req, res, next) => {
-  try {
-    console.log(req.body);
-    const result = await controller.changePassword(req.body);
-    res.json(result);
-  } catch (error) {
-    next(error);
+//Change Password
+router.post(
+  "/change-password",
+  checkRole(["admin", "user"]),
+  async (req, res, next) => {
+    try {
+      console.log(req.body);
+      const result = await controller.changePassword(req.currentUser, req.body);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
+
+//Reset Password by admin
 router.post(
   "/reset-password/byadmin",
   checkRole(["admin"]),
@@ -131,6 +145,8 @@ router.post(
     }
   }
 );
+
+//Block User by admin
 router.patch(
   "/block-user/byadmin",
   checkRole(["admin"]),
@@ -160,6 +176,7 @@ router.get(
   async (req, res, next) => {
     try {
       const result = await controller.getProfile(req.currentUser);
+      console.log(req.headers);
       res.json(result);
     } catch (error) {
       next(error);
