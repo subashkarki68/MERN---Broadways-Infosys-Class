@@ -13,6 +13,7 @@ const userSchema = new Schema(
       required: true,
     },
     isActive: { type: Boolean, default: true },
+    pictureUrl: { type: String },
     fpToken: { type: String },
     fpTokenExpires: { type: Date },
   },

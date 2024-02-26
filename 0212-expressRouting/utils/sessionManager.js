@@ -11,8 +11,6 @@ const isSuperAdmin = (req, res, next) => {
     if (!superAdminPassword)
       throw new Error("Please provide your super admin password.");
     const superAdmin = process.env.SUPER_ADMIN_PASSWORD === superAdminPassword;
-
-    console.log("🚀 ~ isSuperAdmin ~ superAdmin:", superAdmin);
     if (!superAdmin) throw new Error("Password incorrect for Super Admin");
     next();
   } catch (error) {

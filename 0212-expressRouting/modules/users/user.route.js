@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const multer = require("multer");
 const {
   adminRegistrationValidate,
   registrationValidate,
@@ -6,6 +7,28 @@ const {
 } = require("./user.validate");
 const { checkRole, isSuperAdmin } = require("../../utils/sessionManager");
 const controller = require("./user.controller");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./public/images/users");
+  },
+  filename: function (req, file, cb) {
+    const arr = file.originalname.split(".");
+    const imageName = "profileImage".concat("-", Date.now(), ".", arr.pop());
+    cb(null, imageName);
+  },
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const { mimetype } = file;
+    if (mimetype !== "image/jpeg" && mimetype !== "image/png")
+      cb(new Error("Only png, jpg and jpeg are supported"));
+    cb(null, true);
+  },
+});
 
 //TO add admin user by superAdmin
 router.post(
@@ -45,16 +68,25 @@ router.route("/").get(checkRole(["admin"]), async (req, res, next) => {
   }
 });
 
-//ADD NEW USER
+//ADD NEW USER - OPenRoute
 
-router.post("/register", registrationValidate, async (req, res, next) => {
-  try {
-    const result = await controller.register(req.body);
-    res.json(result);
-  } catch (error) {
-    next(error);
+router.post(
+  "/register",
+  upload.single("pictureUrl"),
+  registrationValidate,
+  async (req, res, next) => {
+    try {
+      console.log(req.file);
+      if (req.file) {
+        req.body.pictureUrl = req.file.path.replace("public", "");
+      }
+      const result = await controller.register(req.body);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.post(
   "/register/byadmin",

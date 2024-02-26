@@ -80,6 +80,7 @@ const deleteByID = (userID) => {
 
 //OPEN Router Register
 const register = async (payload) => {
+  // delete payload.roles;
   const user = await createUser(payload);
   if (!user) errorMsg("Registration Failed");
   //Send Email

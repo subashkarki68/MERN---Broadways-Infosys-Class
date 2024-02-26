@@ -66,6 +66,7 @@ const adminRegistrationValidate = (req, res, next) => {
 
 const registrationValidate = (req, res, next) => {
   req.body.roles = ["user"];
+  console.log(req.body, req.file);
   const { error } = registrationSchema.validate(req.body);
   if (error) next(error.details[0].message);
   next();

@@ -123,14 +123,6 @@ Content-Type: application/json
     "password": "123"
 }
 ###
-POST {{apiUrl}}/users/register
-Content-Type: application/json
-
-{
-    "email": "test@gmail.com",
-    "name": "test",
-    "password": "123"
-}
 
 
 ####################################################################
