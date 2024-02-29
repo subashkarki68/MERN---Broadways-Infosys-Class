@@ -31,4 +31,45 @@ const createBlog = async (_id, payload) => {
   }
 };
 
-module.exports = { createBlog };
+// ██╗     ██╗███████╗████████╗
+// ██║     ██║██╔════╝╚══██╔══╝
+// ██║     ██║███████╗   ██║
+// ██║     ██║╚════██║   ██║
+// ███████╗██║███████║   ██║
+// ╚══════╝╚═╝╚══════╝   ╚═╝
+const listBlog = () => {
+  //Pagination
+  //ObjectId Reference
+  //Solution aggregation
+  return Blog.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        localField: "author",
+        foreignField: "_id",
+        as: "author",
+      },
+    },
+    {
+      $unwind: {
+        path: "$author",
+        preserveNullAndEmptyArrays: false,
+      },
+    },
+    {
+      $project: {
+        author: "$author.name",
+        title: 1,
+        slug: 1,
+        status: 1,
+        content: 1,
+        pictureUrl: 1,
+        createdAt: 1,
+        updatedAt: 1,
+        _id: 0,
+      },
+    },
+  ]);
+};
+
+module.exports = { createBlog, listBlog };

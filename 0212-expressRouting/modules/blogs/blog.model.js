@@ -39,11 +39,11 @@ blogSchema.pre("save", async function (next) {
 async function generateUniqueSlug(slug) {
   const existingBlog = await Blog.findOne({ slug });
   if (!existingBlog) {
-    return slug;
+    return slug.toLowerCase();
   }
 
   const newSlug = `${slug}-${Date.now()}`;
-  return newSlug;
+  return newSlug.toLowerCase();
 }
 const Blog = new model("Blog", blogSchema);
 
