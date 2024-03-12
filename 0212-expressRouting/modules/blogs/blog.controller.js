@@ -72,4 +72,16 @@ const listBlog = () => {
   ]);
 };
 
+// Get by Slug OPen Route
+//Get by slug for admin and user
+
+// UPDATE BY SLUG
+/*
+    1. Blog exist?
+    2. Title change?? => change slug
+    3. user role ?? => only author can change the data
+  */
+
+// CHANGE BLOG STATUS
+
 module.exports = { createBlog, listBlog };

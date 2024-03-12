@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register Page</title>
+  </head>
+  <body>
+    <form id="upload" enctype="multipart/form-data" method="post">
+      <label>name</label>
+      <input type="text" name="name" id="name" placeholder="Name" />
+      <label>Email</label>
+      <input type="email" name="email" id="email" placeholder="Email" />
+      <label>Password</label>
+      <input type="password" name="password" id="password" />
+      <label>Picture</label>
+      <input type="file" name="pictureUrl" id="pictureUrl" />
+      <script src="./dataSender.js"></script>
+      <button onclick="sendData(); return false">Submit</button>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+/*
+Blog Add (create) (Admin, User)
+Blog List (list) (Admin)
+Get Author Specific Blog (getAuthorBlogs) (User)
+get Published Blog Only (getPublishedBlogs) (Open)
+ 
+ 
+Get By Slug (getBySlug) (Admin, User)
+Update Blog (updateBlog) (Admin, User)
+Publish / Draft  (changeStatus) (Admin, User)
+DeleteBlog (removeBlog) (Admin, User)
+*/

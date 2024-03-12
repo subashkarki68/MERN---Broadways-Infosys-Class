@@ -10,7 +10,7 @@ const { titleMessages, authorMessages } = require("../../utils/joiMessages");
 
 const blogSchema = Joi.object({
   title: Joi.string().min(3).max(60).required().messages(titleMessages),
-  roles: Joi.array().items(
+  status: Joi.array().items(
     Joi.string().valid("draft", "published").default("draft")
   ),
   content: Joi.string().required(true),

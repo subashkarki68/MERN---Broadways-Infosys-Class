@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  limits: { fileSize: 1024 * 1024 },
+  limits: { fileSize: 1024 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     const { mimetype } = file;
     if (mimetype !== "image/jpeg" && mimetype !== "image/png")
@@ -72,7 +72,15 @@ router.route("/").get(checkRole(["admin"]), async (req, res, next) => {
 
 router.post(
   "/register",
+  (req, res, next) => {
+    console.log("register route");
+    next();
+  },
   upload.single("pictureUrl"),
+  (req, res, next) => {
+    console.log("upload.single pic url pass");
+    next();
+  },
   registrationValidate,
   async (req, res, next) => {
     try {

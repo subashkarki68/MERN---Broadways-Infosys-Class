@@ -1,5 +1,6 @@
 require("dotenv").config();
 const db = require("./config/db");
+const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
 
@@ -19,6 +20,7 @@ db.then(() => {
   process.exit(1);
 });
 
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json()); //to allow JSON as request body
 app.use("/assets", express.static("public"));
