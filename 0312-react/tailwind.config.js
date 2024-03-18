@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -18,6 +18,26 @@ module.exports = {
     },
     extend: {
       colors: {
+        normal: "hsl(60, 12%, 60%)",
+        fighting: "hsl(0, 64%, 47%)",
+        flying: "hsl(230, 56%, 66%)",
+        poison: "hsl(300, 44%, 50%)",
+        ground: "hsl(42, 42%, 55%)",
+        rock: "hsl(45, 42%, 46%)",
+        bug: "hsl(64, 68%, 40%)",
+        ghost: "hsl(254, 14%, 41%)",
+        steel: "hsl(210, 10%, 76%)",
+        fire: "hsl(20, 79%, 56%)",
+        water: "hsl(216, 60%, 60%)",
+        grass: "hsl(100, 36%, 52%)",
+        electric: "hsl(52, 93%, 64%)",
+        psychic: "hsl(336, 72%, 63%)",
+        ice: "hsl(180, 42%, 70%)",
+        dragon: "hsl(248, 75%, 56%)",
+        dark: "hsl(220, 10%, 30%)",
+        fairy: "hsl(330, 48%, 73%)",
+        unknown: "hsl(0, 0%, 75%)",
+        shadow: "hsl(254, 14%, 41%)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -74,4 +94,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

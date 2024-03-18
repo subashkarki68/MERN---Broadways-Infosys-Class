@@ -17,6 +17,11 @@ import {
 import CountrySelector from "./CountrySelector";
 import WordCount from "./WordCount";
 import UseEffect from "./UseEffect";
+import Pokemons from "./Pokemons";
+import WeatherApp from "./WeatherApp";
+import { MapContainer } from "react-leaflet";
+import { ControlledForm, UnControlledForm } from "./Form";
+import { Input } from "./components/ui/input";
 
 const data = [
   { id: 1, title: "apple" },
@@ -27,7 +32,7 @@ const data = [
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <div
-      className='flex gap-2 border-red-100 justify-evenly'
+      className='flex gap-2 border-red-100 justify-evenly '
       style={{ border: "2px solid red" }}
     >
       <Card className='flex flex-col justify-between'>
@@ -113,6 +118,50 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <CardFooter>
           <p>Card Footer</p>
         </CardFooter>
+      </Card>
+    </div>
+    <div className='flex gap-2 border-red-100 justify-evenly'>
+      <Card className='flex flex-col justify-between mt-5'>
+        <CardHeader>
+          <CardTitle>Day 4 - Pokemon App</CardTitle>
+          <CardDescription>using useEffect</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Pokemons />
+        </CardContent>
+      </Card>
+    </div>
+    <div className='flex gap-2 border-red-100 justify-evenly'>
+      <Card className='flex flex-col justify-between mt-5'>
+        <CardHeader>
+          <CardTitle>Day 5 - HomeWork</CardTitle>
+          <CardDescription>Weather Api</CardDescription>
+        </CardHeader>
+        <CardContent className=' h-[100vh] w-[100vw]'>
+          <Input placeholder='Enter city' className='mb-20 w-[50%]' />
+          <MapContainer
+            center={[27.505, 70.09]}
+            scrollWheelZoom={false}
+            className='h-full w-full'
+            zoom={8}
+            minZoom={3}
+            maxZoom={19}
+          >
+            <WeatherApp />
+          </MapContainer>
+        </CardContent>
+      </Card>
+    </div>
+    <div className='flex gap-2 border-red-100 justify-evenly'>
+      <Card className='flex flex-col justify-between mt-5'>
+        <CardHeader>
+          <CardTitle>Day 6 - Form Manipulation</CardTitle>
+          <CardDescription>Form</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ControlledForm />
+          <UnControlledForm />
+        </CardContent>
       </Card>
     </div>
   </React.StrictMode>
