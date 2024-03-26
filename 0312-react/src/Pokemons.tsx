@@ -1,5 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Avatar, AvatarImage } from "./components/ui/avatar";
+import { Badge } from "./components/ui/badge";
+import { Button } from "./components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,8 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "./components/ui/card";
-import { Avatar, AvatarImage } from "./components/ui/avatar";
-import { Badge } from "./components/ui/badge";
 import {
   Drawer,
   DrawerClose,
@@ -18,17 +19,14 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "./components/ui/drawer";
-import { Button } from "./components/ui/button";
+import { Input } from "./components/ui/input";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
   PaginationNext,
-  PaginationPrevious,
+  PaginationPrevious
 } from "./components/ui/pagination";
-import { Input } from "./components/ui/input";
 import { Skeleton } from "./components/ui/skeleton";
 
 interface Pokemon {
@@ -47,11 +45,13 @@ function Pokemons() {
   const [maxItems, setMaxItems] = useState(100);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
       try {
         const offSet = (page - 1) * limit;
+        const fetcher = axios.get(url:string).then((res) => res.data);
         const { data } = await axios(
           `https://pokeapi.co/api/v2/pokemon?offset=${offSet}&limit=${limit}`
         );
@@ -113,6 +113,7 @@ function Pokemons() {
         {pokemonList.map((pokemon: any) => {
           const typeName = pokemon?.types[0]?.type?.name;
           const backgroundClass = typeName ? `bg-${typeName}` : "bg-normal";
+          //TODO
           console.log(
             "🚀 ~ {pokemonList.map ~ backgroundClass:",
             backgroundClass

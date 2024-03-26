@@ -13,7 +13,6 @@ export function ControlledForm() {
   //   2. Form on the fly validation
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(form);
   };
   return (
     <div>
@@ -55,7 +54,6 @@ export function UnControlledForm() {
     e.preventDefault();
     const formData = new FormData(formRef.current!);
     //send that form to axios or fetch
-    console.log(formData);
   };
   return (
     <div>

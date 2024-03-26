@@ -16,7 +16,7 @@ export const MyFootball = () => {
     alert(arg);
   };
   return (
-    <Button variant={"outline"} onMouseOut={() => shoot("Goal by Subas")}>
+    <Button variant={"outline"} onMouseDown={() => shoot("Goal by Subas")}>
       Subash shoot ball
     </Button>
   );
